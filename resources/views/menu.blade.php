@@ -27,77 +27,139 @@
         </nav>
     </header>
     <main>
-        <section id="filter">
-            <div class="container-lg d-flex gap-3 my-3">
-                <button class="btn btn-success px-4 py-1">Semua</button>
-                <button class="btn btn-grey px-4 py-1">Coffe</button>
-                <button class="btn btn-grey px-4 py-1">Milk</button>
-                <button class="btn btn-grey px-4 py-1">Tea</button>
-                <button class="btn btn-grey px-4 py-1">Noodle</button>
-                <button class="btn btn-grey px-4 py-1">Bread</button>
-                <select name="sort" id="" class="border-success rounded">
-                    <option value="">Sort By</option>
-                    <option value="">Terpopuler</option>
-                    <option value="">Termurah</option>
-                </select>
+        <section class="container-lg">
+            <div class=" row row-cols-2 row-cols-md-6 g-4">
+                <div class="col d-grid">
+                    <button class="btn tablinks btnsemua px-4 py-1" data-tab="semua">Semua</button>
+                </div>
+                @foreach ($categories as $category)
+                    <div class="col d-grid">
+                        <button class="btn tablinks btn{{ strtolower($category) }} px-4 py-1"
+                            data-tab="{{ strtolower($category) }}">{{ $category }}</button>
+                    </div>
+                @endforeach
+                <div class="col-grid">
+                    <select class="form-select" aria-label="Default select example ">
+                        <option selected>Sort By</option>
+                        <option value="1">Termurah</option>
+                        <option value="2">Termahal</option>
+                    </select>
+                </div>
+
             </div>
         </section>
-        <section id="coffe" class="py-2">
-            <div class="container-lg">
-                <h2>Coffe</h2>
-                <div class="row row-cols-4 g-4">
-                    <div class="col">
-                        <div class="card h-100">
-                            <img src="https://assets.unileversolutions.com/v1/63465882.png"
-                                style="object-fit:cover; height: 200px; width: 100%; object-position: 50%;  "
-                                class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h3 class="card-title">Coffe Milk</h3>
-                                <p class="card-text">Kopi + Susu</p>
-                                <div class="d-grid">
-                                    <button class="btn btn-success" type="button">Tambah</button>
+        {{-- <section class="tabcontent tabsemua">
+            @foreach ($categories as $category)
+                <div id="{{ $category }}" class="py-2">
+                    <div class="container-lg">
+                        <h2>{{ $category }}</h2>
+                        <div class="row row-cols-2 row-cols-md-4 g-2 g-md-3">
+                            @foreach ($menus->where('kategori', $category) as $menu)
+                                <div class="col">
+                                    <div class="card h-100">
+                                        <img src="{{ $menu->gambar }}"
+                                            style="object-fit:cover;  width: 100%; object-position: 50%;  "
+                                            class="card-img-top" alt="kopi">
+                                        <div class="card-body">
+                                            <h3 class="card-title">{{ $menu->nama }}</h3>
+                                            <p class="card-text">{{ $menu->deskripsi }}</p>
+                                            <div class="d-grid">
+                                                <button class="btn btn-success" type="button">Tambah</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        </section> --}}
+        @foreach ($categories as $category)
+            <section class="tabcontent tab{{ strtolower($category) }}">
+                <div id="{{ $category }}" class="py-2">
+                    <div class="container-lg">
+                        <h2>{{ $category }}</h2>
+                        <div class="row row-cols-2 row-cols-md-4 g-2 g-md-3">
+                            @foreach ($menus->where('kategori', $category) as $menu)
+                                <div class="col">
+                                    <div class="card h-100">
+                                        <img src="{{ $menu->gambar }}"
+                                            style="object-fit:cover;  width: 100%; object-position: 50%;  "
+                                            class="card-img-top" alt="kopi">
+                                        <div class="card-body">
+                                            <h3 class="card-title">{{ $menu->nama }}</h3>
+                                            <p class="card-text">{{ $menu->deskripsi }}</p>
+                                            <div class="d-grid">
+                                                <button class="btn btn-success" type="button">Tambah</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            </section>
+        @endforeach
+        {{-- <section class="tabcontent tabcoffe">
+            <div id="coffe" class="py-2">
+                <div class="container-lg">
+                    <h2>Coffe</h2>
+                    <div class="row row-cols-2 row-cols-md-4 g-2 g-md-3">
+                        <div class="col">
+                            <div class="card h-100">
+                                <img src="https://assets.unileversolutions.com/v1/63465882.png"
+                                    style="object-fit:cover;  width: 100%; object-position: 50%;  " class="card-img-top"
+                                    alt="kopi">
+                                <div class="card-body">
+                                    <h3 class="card-title">Coffe Milk</h3>
+                                    <p class="card-text">Kopi + Susu</p>
+                                    <div class="d-grid">
+                                        <button class="btn btn-success" type="button">Tambah</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col">
-                        <div class="card h-100">
-                            <img src="https://assets.unileversolutions.com/v1/63465882.png"
-                                style="object-fit:cover; height: 200px; width: 100%; object-position: 50%;  "
-                                class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h3 class="card-title">Coffe Milk</h3>
-                                <p class="card-text">Kopi + Susu</p>
-                                <div class="d-grid">
-                                    <button class="btn btn-success" type="button">Tambah</button>
+                        <div class="col">
+                            <div class="card h-100">
+                                <img src="https://assets.unileversolutions.com/v1/63465882.png"
+                                    style="object-fit:cover;  width: 100%; object-position: 50%;  "
+                                    class="card-img-top" alt="kopi">
+                                <div class="card-body">
+                                    <h3 class="card-title">Coffe Milk</h3>
+                                    <p class="card-text">Kopi + Susu</p>
+                                    <div class="d-grid">
+                                        <button class="btn btn-success" type="button">Tambah</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col">
-                        <div class="card h-100">
-                            <img src="https://assets.unileversolutions.com/v1/63465882.png"
-                                style="object-fit:cover; height: 200px; width: 100%; object-position: 50%;  "
-                                class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h3 class="card-title">Coffe Milk</h3>
-                                <p class="card-text">Kopi + Susu</p>
-                                <div class="d-grid">
-                                    <button class="btn btn-success" type="button">Tambah</button>
+                        <div class="col">
+                            <div class="card h-100">
+                                <img src="https://assets.unileversolutions.com/v1/63465882.png"
+                                    style="object-fit:cover;  width: 100%; object-position: 50%;  "
+                                    class="card-img-top" alt="kopi">
+                                <div class="card-body">
+                                    <h3 class="card-title">Coffe Milk</h3>
+                                    <p class="card-text">Kopi + Susu</p>
+                                    <div class="d-grid">
+                                        <button class="btn btn-success" type="button">Tambah</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col">
-                        <div class="card h-100">
-                            <img src="https://assets.unileversolutions.com/v1/63465882.png"
-                                style="object-fit:cover; height: 200px; width: 100%; object-position: 50%;  "
-                                class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h3 class="card-title">Coffe Milk</h3>
-                                <p class="card-text">Kopi + Susu</p>
-                                <div class="d-grid">
-                                    <button class="btn btn-success" type="button">Tambah</button>
+                        <div class="col">
+                            <div class="card h-100">
+                                <img src="https://assets.unileversolutions.com/v1/63465882.png"
+                                    style="object-fit:cover;  width: 100%; object-position: 50%;  "
+                                    class="card-img-top" alt="kopi">
+                                <div class="card-body">
+                                    <h3 class="card-title">Coffe Milk</h3>
+                                    <p class="card-text">Kopi + Susu</p>
+                                    <div class="d-grid">
+                                        <button class="btn btn-success" type="button">Tambah</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -105,125 +167,64 @@
                 </div>
             </div>
         </section>
-        <section id="Tea" class="py-2">
-            <div class="container-lg">
-                <h2>Tea</h2>
-                <div class="row row-cols-4 g-4">
-                    <div class="col">
-                        <div class="card h-100">
-                            <img src="https://assets.unileversolutions.com/v1/63465882.png"
-                                style="object-fit:cover; height: 200px; width: 100%; object-position: 50%;  "
-                                class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h3 class="card-title">Coffe Milk</h3>
-                                <p class="card-text">Kopi + Susu</p>
-                                <div class="d-grid">
-                                    <button class="btn btn-success" type="button">Tambah</button>
+        <section class="tabcontent tabmilk">
+            <div id="milk" class="py-2">
+                <div class="container-lg">
+                    <h2>milk</h2>
+                    <div class="row row-cols-2 row-cols-md-4 g-2 g-md-3">
+                        <div class="col">
+                            <div class="card h-100">
+                                <img src="https://assets.unileversolutions.com/v1/63465882.png"
+                                    style="object-fit:cover;  width: 100%; object-position: 50%;  "
+                                    class="card-img-top" alt="kopi">
+                                <div class="card-body">
+                                    <h3 class="card-title">Coffe Milk</h3>
+                                    <p class="card-text">Kopi + Susu</p>
+                                    <div class="d-grid">
+                                        <button class="btn btn-success" type="button">Tambah</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col">
-                        <div class="card h-100">
-                            <img src="https://assets.unileversolutions.com/v1/63465882.png"
-                                style="object-fit:cover; height: 200px; width: 100%; object-position: 50%;  "
-                                class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h3 class="card-title">Coffe Milk</h3>
-                                <p class="card-text">Kopi + Susu</p>
-                                <div class="d-grid">
-                                    <button class="btn btn-success" type="button">Tambah</button>
+                        <div class="col">
+                            <div class="card h-100">
+                                <img src="https://assets.unileversolutions.com/v1/63465882.png"
+                                    style="object-fit:cover;  width: 100%; object-position: 50%;  "
+                                    class="card-img-top" alt="kopi">
+                                <div class="card-body">
+                                    <h3 class="card-title">Coffe Milk</h3>
+                                    <p class="card-text">Kopi + Susu</p>
+                                    <div class="d-grid">
+                                        <button class="btn btn-success" type="button">Tambah</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col">
-                        <div class="card h-100">
-                            <img src="https://assets.unileversolutions.com/v1/63465882.png"
-                                style="object-fit:cover; height: 200px; width: 100%; object-position: 50%;  "
-                                class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h3 class="card-title">Coffe Milk</h3>
-                                <p class="card-text">Kopi + Susu</p>
-                                <div class="d-grid">
-                                    <button class="btn btn-success" type="button">Tambah</button>
+                        <div class="col">
+                            <div class="card h-100">
+                                <img src="https://assets.unileversolutions.com/v1/63465882.png"
+                                    style="object-fit:cover;  width: 100%; object-position: 50%;  "
+                                    class="card-img-top" alt="kopi">
+                                <div class="card-body">
+                                    <h3 class="card-title">Coffe Milk</h3>
+                                    <p class="card-text">Kopi + Susu</p>
+                                    <div class="d-grid">
+                                        <button class="btn btn-success" type="button">Tambah</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col">
-                        <div class="card h-100">
-                            <img src="https://assets.unileversolutions.com/v1/63465882.png"
-                                style="object-fit:cover; height: 200px; width: 100%; object-position: 50%;  "
-                                class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h3 class="card-title">Coffe Milk</h3>
-                                <p class="card-text">Kopi + Susu</p>
-                                <div class="d-grid">
-                                    <button class="btn btn-success" type="button">Tambah</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <section id="Noodle" class="py-2">
-            <div class="container-lg">
-                <h2>Noodle</h2>
-                <div class="row row-cols-4 g-4">
-                    <div class="col">
-                        <div class="card h-100">
-                            <img src="https://assets.unileversolutions.com/v1/63465882.png"
-                                style="object-fit:cover; height: 200px; width: 100%; object-position: 50%;  "
-                                class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h3 class="card-title">Coffe Milk</h3>
-                                <p class="card-text">Kopi + Susu</p>
-                                <div class="d-grid">
-                                    <button class="btn btn-success" type="button">Tambah</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card h-100">
-                            <img src="https://assets.unileversolutions.com/v1/63465882.png"
-                                style="object-fit:cover; height: 200px; width: 100%; object-position: 50%;  "
-                                class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h3 class="card-title">Coffe Milk</h3>
-                                <p class="card-text">Kopi + Susu</p>
-                                <div class="d-grid">
-                                    <button class="btn btn-success" type="button">Tambah</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card h-100">
-                            <img src="https://assets.unileversolutions.com/v1/63465882.png"
-                                style="object-fit:cover; height: 200px; width: 100%; object-position: 50%;  "
-                                class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h3 class="card-title">Coffe Milk</h3>
-                                <p class="card-text">Kopi + Susu</p>
-                                <div class="d-grid">
-                                    <button class="btn btn-success" type="button">Tambah</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card h-100">
-                            <img src="https://assets.unileversolutions.com/v1/63465882.png"
-                                style="object-fit:cover; height: 200px; width: 100%; object-position: 50%;  "
-                                class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h3 class="card-title">Coffe Milk</h3>
-                                <p class="card-text">Kopi + Susu</p>
-                                <div class="d-grid">
-                                    <button class="btn btn-success" type="button">Tambah</button>
+                        <div class="col">
+                            <div class="card h-100">
+                                <img src="https://assets.unileversolutions.com/v1/63465882.png"
+                                    style="object-fit:cover;  width: 100%; object-position: 50%;  "
+                                    class="card-img-top" alt="kopi">
+                                <div class="card-body">
+                                    <h3 class="card-title">Coffe Milk</h3>
+                                    <p class="card-text">Kopi + Susu</p>
+                                    <div class="d-grid">
+                                        <button class="btn btn-success" type="button">Tambah</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -231,62 +232,64 @@
                 </div>
             </div>
         </section>
-        <section id="Bread" class="py-2">
-            <div class="container-lg">
-                <h2>Bread</h2>
-                <div class="row row-cols-4 g-4">
-                    <div class="col">
-                        <div class="card h-100">
-                            <img src="https://assets.unileversolutions.com/v1/63465882.png"
-                                style="object-fit:cover; height: 200px; width: 100%; object-position: 50%;  "
-                                class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h3 class="card-title">Coffe Milk</h3>
-                                <p class="card-text">Kopi + Susu</p>
-                                <div class="d-grid">
-                                    <button class="btn btn-success" type="button">Tambah</button>
+        <section class="tabcontent tabtea">
+            <div id="tea" class="py-2">
+                <div class="container-lg">
+                    <h2>Tea</h2>
+                    <div class="row row-cols-2 row-cols-md-4 g-2 g-md-3">
+                        <div class="col">
+                            <div class="card h-100">
+                                <img src="https://assets.unileversolutions.com/v1/63465882.png"
+                                    style="object-fit:cover;  width: 100%; object-position: 50%;  "
+                                    class="card-img-top" alt="kopi">
+                                <div class="card-body">
+                                    <h3 class="card-title">Coffe Milk</h3>
+                                    <p class="card-text">Kopi + Susu</p>
+                                    <div class="d-grid">
+                                        <button class="btn btn-success" type="button">Tambah</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col">
-                        <div class="card h-100">
-                            <img src="https://assets.unileversolutions.com/v1/63465882.png"
-                                style="object-fit:cover; height: 200px; width: 100%; object-position: 50%;  "
-                                class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h3 class="card-title">Coffe Milk</h3>
-                                <p class="card-text">Kopi + Susu</p>
-                                <div class="d-grid">
-                                    <button class="btn btn-success" type="button">Tambah</button>
+                        <div class="col">
+                            <div class="card h-100">
+                                <img src="https://assets.unileversolutions.com/v1/63465882.png"
+                                    style="object-fit:cover;  width: 100%; object-position: 50%;  "
+                                    class="card-img-top" alt="kopi">
+                                <div class="card-body">
+                                    <h3 class="card-title">Coffe Milk</h3>
+                                    <p class="card-text">Kopi + Susu</p>
+                                    <div class="d-grid">
+                                        <button class="btn btn-success" type="button">Tambah</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col">
-                        <div class="card h-100">
-                            <img src="https://assets.unileversolutions.com/v1/63465882.png"
-                                style="object-fit:cover; height: 200px; width: 100%; object-position: 50%;  "
-                                class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h3 class="card-title">Coffe Milk</h3>
-                                <p class="card-text">Kopi + Susu</p>
-                                <div class="d-grid">
-                                    <button class="btn btn-success" type="button">Tambah</button>
+                        <div class="col">
+                            <div class="card h-100">
+                                <img src="https://assets.unileversolutions.com/v1/63465882.png"
+                                    style="object-fit:cover;  width: 100%; object-position: 50%;  "
+                                    class="card-img-top" alt="kopi">
+                                <div class="card-body">
+                                    <h3 class="card-title">Coffe Milk</h3>
+                                    <p class="card-text">Kopi + Susu</p>
+                                    <div class="d-grid">
+                                        <button class="btn btn-success" type="button">Tambah</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col">
-                        <div class="card h-100">
-                            <img src="https://assets.unileversolutions.com/v1/63465882.png"
-                                style="object-fit:cover; height: 200px; width: 100%; object-position: 50%;  "
-                                class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h3 class="card-title">Coffe Milk</h3>
-                                <p class="card-text">Kopi + Susu</p>
-                                <div class="d-grid">
-                                    <button class="btn btn-success" type="button">Tambah</button>
+                        <div class="col">
+                            <div class="card h-100">
+                                <img src="https://assets.unileversolutions.com/v1/63465882.png"
+                                    style="object-fit:cover;  width: 100%; object-position: 50%;  "
+                                    class="card-img-top" alt="kopi">
+                                <div class="card-body">
+                                    <h3 class="card-title">Coffe Milk</h3>
+                                    <p class="card-text">Kopi + Susu</p>
+                                    <div class="d-grid">
+                                        <button class="btn btn-success" type="button">Tambah</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -294,7 +297,137 @@
                 </div>
             </div>
         </section>
-        <section>
+        <section class="tabcontent tabnoodle">
+            <div id="noodle" class="py-2">
+                <div class="container-lg">
+                    <h2>Noodle</h2>
+                    <div class="row row-cols-2 row-cols-md-4 g-2 g-md-3">
+                        <div class="col">
+                            <div class="card h-100">
+                                <img src="https://assets.unileversolutions.com/v1/63465882.png"
+                                    style="object-fit:cover;  width: 100%; object-position: 50%;  "
+                                    class="card-img-top" alt="kopi">
+                                <div class="card-body">
+                                    <h3 class="card-title">Coffe Milk</h3>
+                                    <p class="card-text">Kopi + Susu</p>
+                                    <div class="d-grid">
+                                        <button class="btn btn-success" type="button">Tambah</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card h-100">
+                                <img src="https://assets.unileversolutions.com/v1/63465882.png"
+                                    style="object-fit:cover;  width: 100%; object-position: 50%;  "
+                                    class="card-img-top" alt="kopi">
+                                <div class="card-body">
+                                    <h3 class="card-title">Coffe Milk</h3>
+                                    <p class="card-text">Kopi + Susu</p>
+                                    <div class="d-grid">
+                                        <button class="btn btn-success" type="button">Tambah</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card h-100">
+                                <img src="https://assets.unileversolutions.com/v1/63465882.png"
+                                    style="object-fit:cover;  width: 100%; object-position: 50%;  "
+                                    class="card-img-top" alt="kopi">
+                                <div class="card-body">
+                                    <h3 class="card-title">Coffe Milk</h3>
+                                    <p class="card-text">Kopi + Susu</p>
+                                    <div class="d-grid">
+                                        <button class="btn btn-success" type="button">Tambah</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card h-100">
+                                <img src="https://assets.unileversolutions.com/v1/63465882.png"
+                                    style="object-fit:cover;  width: 100%; object-position: 50%;  "
+                                    class="card-img-top" alt="kopi">
+                                <div class="card-body">
+                                    <h3 class="card-title">Coffe Milk</h3>
+                                    <p class="card-text">Kopi + Susu</p>
+                                    <div class="d-grid">
+                                        <button class="btn btn-success" type="button">Tambah</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="tabcontent tabbread">
+            <div id="bread" class="py-2">
+                <div class="container-lg">
+                    <h2>Bread</h2>
+                    <div class="row row-cols-2 row-cols-md-4 g-2 g-md-3">
+                        <div class="col">
+                            <div class="card h-100">
+                                <img src="https://assets.unileversolutions.com/v1/63465882.png"
+                                    style="object-fit:cover;  width: 100%; object-position: 50%;  "
+                                    class="card-img-top" alt="kopi">
+                                <div class="card-body">
+                                    <h3 class="card-title">Coffe Milk</h3>
+                                    <p class="card-text">Kopi + Susu</p>
+                                    <div class="d-grid">
+                                        <button class="btn btn-success" type="button">Tambah</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card h-100">
+                                <img src="https://assets.unileversolutions.com/v1/63465882.png"
+                                    style="object-fit:cover;  width: 100%; object-position: 50%;  "
+                                    class="card-img-top" alt="kopi">
+                                <div class="card-body">
+                                    <h3 class="card-title">Coffe Milk</h3>
+                                    <p class="card-text">Kopi + Susu</p>
+                                    <div class="d-grid">
+                                        <button class="btn btn-success" type="button">Tambah</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card h-100">
+                                <img src="https://assets.unileversolutions.com/v1/63465882.png"
+                                    style="object-fit:cover;  width: 100%; object-position: 50%;  "
+                                    class="card-img-top" alt="kopi">
+                                <div class="card-body">
+                                    <h3 class="card-title">Coffe Milk</h3>
+                                    <p class="card-text">Kopi + Susu</p>
+                                    <div class="d-grid">
+                                        <button class="btn btn-success" type="button">Tambah</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card h-100">
+                                <img src="https://assets.unileversolutions.com/v1/63465882.png"
+                                    style="object-fit:cover;  width: 100%; object-position: 50%;  "
+                                    class="card-img-top" alt="kopi">
+                                <div class="card-body">
+                                    <h3 class="card-title">Coffe Milk</h3>
+                                    <p class="card-text">Kopi + Susu</p>
+                                    <div class="d-grid">
+                                        <button class="btn btn-success" type="button">Tambah</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section> --}}
+        <div>
             <div class="d-flex container-lg gap-3 justify-content-end">
                 <button class="btn btn-success">
                     <svg xmlns="http://www.w3.org/2000/svg" style="width: 32px; height: 32px; color: white;"
@@ -312,11 +445,12 @@
                     </svg></button>
 
             </div>
-        </section>
+            </section>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
     </script>
+    <script src="{{ asset('script/menu.js') }}"></script>
 </body>
 
 </html>

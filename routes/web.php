@@ -18,4 +18,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/menu', [MenuController::class, 'menu']);
+Route::get('/menuapi', function () {
+    return view('menuapi');
+});
+Route::get('/menu/search', [MenuController::class, 'searchMenu'])->name('searchMenu');
+Route::get('/menu/{kategori}/search', [MenuController::class, 'searchMenuByCategory'])->name('searchMenuByCategory');
+Route::get('/menu', [MenuController::class, 'menu'])->name('allmenu');
+Route::get('/menu/sort/{option}', [MenuController::class, 'sortmenu'])->name('sortmenu');
+Route::get('/menu/{kategori}/', [MenuController::class, 'showMenuByCategory'])->name('showmenubycategory');
+Route::get('/menu/{kategori}/{option}', [MenuController::class, 'sortShowMenuByCategory'])->name('sortshowmenubycategory');

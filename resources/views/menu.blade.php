@@ -15,18 +15,6 @@
 </head>
 
 <body>
-    <header>
-        <nav class="navbar">
-            <div class="container-lg">
-                <a class="">Bento kopi</a>
-                <form class="d-flex" action="{{ route('searchMenu') }}" method="GET" role="search">
-                    <input class="form-control me-2" type="search" name="query" placeholder="Search"
-                        aria-label="Search">
-                    <button class="btn btn-outline-success d-none" type="submit">Searchs</button>
-                </form>
-            </div>
-        </nav>
-    </header>
     <main>
         <section class="container-lg">
             <div class=" row row-cols-2 row-cols-md-6 g-4">
